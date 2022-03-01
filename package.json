@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --detectOpenHandles"
+
   },
   "author": "",
   "license": "ISC",
@@ -13,5 +14,10 @@
     "knex": "^1.0.3",
     "nodemon": "^2.0.15",
     "pg": "^8.7.3"
+  },
+  "devDependencies": {
+    "install": "^0.13.0",
+    "jest": "^27.5.1",
+    "npm": "^8.5.2"
   }
 }

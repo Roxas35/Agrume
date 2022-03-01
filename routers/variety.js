@@ -3,9 +3,38 @@ const variety = require('../models/variety');
 
 const router = new Router();
 
-router.get('/variety', async (req, res) => {
-  const varietys = await variety.findAll();
-  res.json(varietys);
+router.get('/', async (req, res) => {
+
+  const varietyy = await variety.findAll();
+
+  res.json(varietyy);
 });
 
-module.exports = variety;
+router.get('/:id' , async (req , res) =>{
+  const id = req.params.id;
+  const varietyy = await variety.findOne(id);
+  res.json(varietyy);
+
+});
+
+router.post('/' , async (req , res) =>{
+   await variety.insert(req.body);
+  res.json('data is succes');
+});
+
+router.delete('/:id' , async (req , res) =>{
+  const id = req.params.id;
+  await variety.destroy(id);
+  res.json('succes delete')
+});
+
+router.put('/:id', async (req , res) =>{
+    const id =  req.params.id;
+    const body = req.body;
+    await variety.update(id , body);
+    res.json('data is succes');
+
+});
+
+
+module.exports = router;

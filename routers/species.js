@@ -4,9 +4,37 @@ const species = require('../models/species');
 
 const router = new Router();
 
-router.get('/species', async (req, res) => {
+router.get('/', async (req, res) => {
+
   const speciess = await species.findAll();
   res.json(speciess);
 });
 
-module.exports = species;
+
+router.get('/:id' , async (req , res) =>{
+  const id = req.params.id;
+  const speciess = await species.findOne(id);
+  res.json(speciess);
+});
+
+router.post('/' , async (req , res) =>{
+   await species.insert(req.body);
+  res.json('data is succes');
+});
+
+router.delete('/:id' , async (req , res) =>{
+  const id = req.params.id;
+  await species.destroy(id);
+  res.json('succes delete')
+});
+
+router.put('/:id', async (req , res) =>{
+    const id =  req.params.id;
+    const body = req.body;
+    await species.update(id , body);
+    res.json('data is succes');
+
+});
+
+
+module.exports = router;
