@@ -18,8 +18,9 @@ router.get('/:id' , async (req , res) =>{
 });
 
 router.post('/' , async (req , res) =>{
-   await species.insert(req.body);
-  res.json('data is succes');
+  const body = req.body;
+  const speciess = await species.insert(req.body)
+  res.json('Data inserted with succes');
 });
 
 router.delete('/:id' , async (req , res) =>{
@@ -33,8 +34,12 @@ router.put('/:id', async (req , res) =>{
     const body = req.body;
     await species.update(id , body);
     res.json('data is succes');
-
 });
 
+router.get('/family/:fa', async (req, res) => {
+  const fa = req.params.fa;
+  const family = await species.findByFamily(fa);
+  res.json(family);
+});
 
 module.exports = router;
