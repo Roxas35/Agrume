@@ -46,6 +46,37 @@ const findBySpecies = async (speciesName) => {
   }).where('vernacular', 'like', speciesName + '%');
 }
 
-module.exports = {findAll , findOne , insert , destroy , update, findByMinJuiciness, findByMaxJuiciness, findByMinBitterness, findByMaxBitterness, findBySpecies};
+const findBetween = async (criteria) => {
+  let request = db('variety_with_full_name').select();
+
+  // je récupère les 2 éventuelles propriétés
+  const { juiciness, bitterness } = criteria;
+
+  // puis je teste leur existence
+  if (juiciness) {
+    // même principe ici
+    const { min, max } = juiciness
+    if (min) {
+      request = request.where('juiciness', '>=', min);
+    }
+    if (max) {
+      request = request.where('juiciness', '<=', max);
+    }
+  }
+  if (bitterness) {
+    // même principe ici
+    const { min, max } = bitterness
+    if (min) {
+      request = request.where('bitterness', '>=', min);
+    }
+    if (max) {
+      request = request.where('bitterness', '<=', max);
+    }
+  }
+
+  // la requête est composée sur mesure, il ne reste qu'à l'exécuter
+  return await request;
+}
 
 
+module.exports = {findAll , findOne , insert , destroy , update, findByMinJuiciness, findByMaxJuiciness, findByMinBitterness, findByMaxBitterness, findBySpecies, findBetween };

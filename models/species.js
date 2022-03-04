@@ -18,7 +18,6 @@ const destroy = async (id) =>{
 }
 
 const update = async (id , object) =>{
-
       await db('species').update(object).where({id});
 }
 
